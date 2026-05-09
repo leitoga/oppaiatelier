@@ -19,7 +19,7 @@
 html, body { margin: 0; padding: 0; }
 html { scroll-behavior: smooth; background: var(--ink); }
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Poppins', 'Inter', system-ui, sans-serif;
   background: var(--ink);
   color: #fff;
   -webkit-font-smoothing: antialiased;
@@ -258,3 +258,33 @@ section { position: relative; padding: 96px 0; }
   object-position: center !important;
   background: #0a0a0c;
 }
+
+/* ============= MOBILE TUNING ============= */
+@media (max-width: 720px) {
+  /* Section padding cut roughly in half */
+  section { padding-top: 64px !important; padding-bottom: 64px !important; }
+
+  /* Bangers / display titles ~half size */
+  h1.bangers, h1 { font-size: 44px !important; line-height: 1.05 !important; }
+  h2.bangers, h2 { font-size: 42px !important; line-height: 1.05 !important; }
+  h3.bangers, h3 { font-size: 26px !important; line-height: 1.1 !important; }
+  .bangers { letter-spacing: .03em; }
+
+  /* Generic display/Archivo Black */
+  .display { font-size: clamp(28px, 8vw, 44px) !important; }
+
+  /* Reduce inner gaps */
+  .container { padding-left: 20px !important; padding-right: 20px !important; }
+
+  /* Audience image (12.jpg) — let it breathe, no aggressive crop */
+  .aud-grid { gap: 28px !important; }
+  .aud-grid > .brush-frame { aspect-ratio: 3/4 !important; max-height: 70vh; }
+  .aud-grid img.flyer-crop { object-fit: cover !important; object-position: center top !important; }
+
+  /* Generic image safety: never overflow viewport */
+  img { max-width: 100%; height: auto; }
+
+  /* Bigger reveal margin shrunk */
+  .reveal, .reveal-l, .reveal-r { will-change: transform; }
+}
+
