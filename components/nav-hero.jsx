@@ -46,12 +46,74 @@ const Nav = () => {
           ))}
         </div>
 
-        <a href="#contacto" className="btn btn-pink" style={{ padding: '12px 18px', fontSize: 12 }}>
+        <a href="#contacto" className="btn btn-pink nav-cta" style={{ padding: '12px 18px', fontSize: 12 }}>
           <Icon name="chat" size={14} color="#fff"/> Pedí presupuesto
         </a>
+
+        {/* Mobile burger */}
+        <button onClick={() => setOpen(o => !o)} className="nav-burger" aria-label="Menú" style={{
+          display: 'none', width: 44, height: 44, padding: 0,
+          background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.15)',
+          borderRadius: 10, color: '#fff', cursor: 'pointer',
+          alignItems: 'center', justifyContent: 'center',
+        }}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round">
+            {open ? (<><path d="M5 5 L19 19"/><path d="M19 5 L5 19"/></>) : (<><path d="M4 7 H20"/><path d="M4 12 H20"/><path d="M4 17 H20"/></>)}
+          </svg>
+        </button>
       </div>
 
+      {/* Mobile drawer */}
+      <div className="nav-drawer" style={{
+        position: 'fixed', top: 0, right: 0, bottom: 0, width: 'min(86vw, 360px)',
+        background: '#0a0a0c', borderLeft: '1px solid rgba(236,27,126,.25)',
+        zIndex: 200, padding: '80px 28px 28px',
+        transform: open ? 'translateX(0)' : 'translateX(100%)',
+        transition: 'transform .35s cubic-bezier(.2,.8,.2,1)',
+        display: 'flex', flexDirection: 'column', gap: 4,
+        boxShadow: open ? '-30px 0 80px rgba(0,0,0,.6)' : 'none',
+      }}>
+        <div style={{ position: 'absolute', top: 20, left: 28, right: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Logo size={.8}/>
+          <button onClick={() => setOpen(false)} aria-label="Cerrar" style={{
+            width: 40, height: 40, borderRadius: 10, background: 'rgba(255,255,255,.06)',
+            border: '1px solid rgba(255,255,255,.15)', color: '#fff', cursor: 'pointer',
+            display: 'grid', placeItems: 'center',
+          }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round"><path d="M5 5 L19 19"/><path d="M19 5 L5 19"/></svg>
+          </button>
+        </div>
+        {links.map((l, i) => (
+          <a key={l.href} href={l.href} onClick={() => setOpen(false)} style={{
+            color: '#fff', textDecoration: 'none', padding: '18px 4px',
+            fontFamily: "'Archivo Black', sans-serif", fontSize: 22, letterSpacing: '.04em', textTransform: 'uppercase',
+            borderBottom: '1px solid rgba(255,255,255,.06)',
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          }}>
+            <span>{l.label}</span>
+            <span className="mono" style={{ color: '#ec1b7e', fontSize: 11, letterSpacing: '.2em' }}>{String(i+1).padStart(2,'0')}</span>
+          </a>
+        ))}
+        <a href="#contacto" onClick={() => setOpen(false)} className="btn btn-pink" style={{ marginTop: 20, justifyContent: 'center' }}>
+          <Icon name="chat" size={14} color="#fff"/> Pedí presupuesto
+        </a>
+        <a href="https://wa.me/5491173743813" target="_blank" rel="noopener" style={{
+          marginTop: 12, padding: '14px 18px', borderRadius: 10,
+          background: '#25D366', color: '#fff', textDecoration: 'none',
+          fontFamily: "'Archivo Black', sans-serif", fontSize: 13, letterSpacing: '.08em', textTransform: 'uppercase',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+        }}>
+          <Icon name="whatsapp" size={16} color="#fff"/> WhatsApp
+        </a>
+      </div>
+      {/* Backdrop */}
+      {open && <div onClick={() => setOpen(false)} style={{
+        position: 'fixed', inset: 0, background: 'rgba(0,0,0,.6)', backdropFilter: 'blur(4px)',
+        zIndex: 150, animation: 'fade .25s ease both',
+      }}/>}
+
       <style>{`
+        @keyframes fade { from { opacity: 0 } to { opacity: 1 } }
         .nav-link::after {
           content: ''; position: absolute; left: 0; right: 100%; bottom: -4px;
           height: 2px; background: var(--pink);
@@ -61,6 +123,8 @@ const Nav = () => {
         .nav-link:hover { color: var(--pink-2); }
         @media (max-width: 920px) {
           .nav-links { display: none !important; }
+          .nav-cta { display: none !important; }
+          .nav-burger { display: flex !important; }
         }
       `}</style>
     </nav>
