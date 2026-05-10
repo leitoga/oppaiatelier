@@ -1,0 +1,36 @@
+{
+  "_comment": "Para agregar fotos: poné el archivo en la subcarpeta correspondiente y agregá su nombre (con extensión) a la lista. El título que muestra la web es el nombre del archivo sin extensión.",
+  "cosplays": [
+    "Rem 01.jpg",
+    "Rem 02.jpg",
+    "Rem 03.jpg",
+    "Rem 04.jpg",
+    "Ahri 01.jpg",
+    "Ahri 02.jpg",
+    "Ahri 03.jpg",
+    "Alya 01.jpg",
+    "Alya 02.jpg",
+    "Alya 03.jpg",
+    "Gawr Gura 01.jpg",
+    "Gawr Gura 02.jpg",
+    "Gawr Gura 03.jpg",
+    "Gwen 01.jpg",
+    "Gwen 02.jpg"
+  ],
+  "figuras": [
+    "Rem 165 cm.png",
+    "Marin Shizuku 164 cm.png",
+    "Kurimi 162 cm.png",
+    "Anya 94 cm.png"
+	"10.jpg"
+  ],
+  "props": [
+    "Peluca Rem.jpg",
+    "Peluca Ram.jpg",
+    "Peluca Gwen 01.jpg",
+    "Peluca Gwen 01 V2.jpg",
+    "Peluca Gwen 02.jpg",
+    "Tijeras Gwen.jpg",
+    "Arma Rem.jpg"
+  ]
+}

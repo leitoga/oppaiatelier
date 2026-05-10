@@ -1,0 +1,54 @@
+name: Update gallery manifest
+
+on:
+  push:
+    paths:
+      - 'gallery/cosplays/**'
+      - 'gallery/props/**'
+      - 'gallery/figuras/**'
+      - '.github/workflows/update-gallery.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate manifest.json
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          const exts = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
+          const cats = ['cosplays', 'props', 'figuras'];
+          const out = {
+            _comment: 'Generado automáticamente por GitHub Action. No editar a mano.',
+          };
+          for (const cat of cats) {
+            const dir = path.join('gallery', cat);
+            if (!fs.existsSync(dir)) { out[cat] = []; continue; }
+            const files = fs.readdirSync(dir)
+              .filter(f => exts.includes(path.extname(f).toLowerCase()))
+              .sort((a, b) => a.localeCompare(b, 'es', { numeric: true, sensitivity: 'base' }));
+            out[cat] = files;
+          }
+          fs.writeFileSync('gallery/manifest.json', JSON.stringify(out, null, 2) + '\n');
+          console.log('Manifest actualizado:', JSON.stringify(out, null, 2));
+          "
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add gallery/manifest.json
+          if git diff --staged --quiet; then
+            echo "Sin cambios en manifest.json"
+          else
+            git commit -m "chore: actualizar manifest de galería [skip ci]"
+            git push
+          fi
